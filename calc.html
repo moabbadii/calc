@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link href="calc.css" rel="stylesheet">
+ 
+</head>
+<body>
+  <div class="display">
+    <input type="text" id="display" readonly>
+  </div>
+<div class="container">
+  <input type="button"value="(" onclick="addToDisplay('(')" class="btn">
+  <input type="button"value=")" onclick="addToDisplay(')')" class="btn">
+  <input type="button"value="%"onclick="addToDisplay('%')" class="btn">
+  <input type="button"value="AC"onclick="clearDisplay('AC')"class="btn">
+  <input type="button"value="7"onclick="addToDisplay('7')" class="btn">
+  <input type="button"value="8"onclick="addToDisplay('8')" class="btn">
+  <input type="button"value="9"onclick="addToDisplay('9')" class="btn">
+  <input type="button"value="/"onclick="addToDisplay('/')" class="btn">
+  <input type="button"value="4"onclick="addToDisplay('4')"class="btn">
+  <input type="button"value="5"onclick="addToDisplay('5')" class="btn">
+  <input type="button"value="6"onclick="addToDisplay('6')" class="btn">
+  <input type="button"value="*"onclick="addToDisplay('*')"class="btn">
+  <input type="button"value="1"onclick="addToDisplay('1')"class="btn">
+  <input type="button"value="2"onclick="addToDisplay('2')" class="btn">
+  <input type="button"value="3"onclick="addToDisplay('3')"class="btn">
+  <input type="button"value="-"onclick="addToDisplay('-')"class="btn">
+  <input type="button"value="0"onclick="addToDisplay('0')"class="btn">
+  <input type="button"value="."onclick="addToDisplay('.')"class="btn">
+  <input type="button"value="="onclick="calculate()"class="btn">
+  <input type="button"value="+"onclick="addToDisplay('+')" class="btn">
+  <input type="button" value="sin" onclick="trigFunction('sin')" class="btn">
+  <input type="button" value="cos" onclick="trigFunction('cos')" class="btn">
+
+  <input type="button" value="π" onclick="addToDisplay(Math.PI)" class="btn">
+  <input type="button" value="sqrt" onclick="addToDisplay('Math.sqrt(')" class="btn">
+  <input type="button" value="^" onclick="addToDisplay('**')" class="btn">
+  <input type="button" value="Deg" onclick="toggleMode('deg')" class="btn">
+  <input type="button" value="Rad" onclick="toggleMode('rad')" class="btn">
+  
+</div>
+<script>
+      function addToDisplay(value) {  
+      document.getElementById('display').value += value;
+    }
+    function clearDisplay() {
+      document.getElementById('display').value = '';
+    }
+    function calculate() {
+      try { 
+        document.getElementById('display').value = eval(document.getElementById('display').value);
+      } catch (error) {
+        document.getElementById('display').value = 'Error';
+      }
+    }
+        function addToDisplay(value) {
+            const display = document.getElementById('display');
+            display.value += value;
+        }
+        function trigFunction(func) {
+            const input = document.getElementById('display');
+            input.value = `${func}(${input.value})`;
+        }
+        let mode = 'rad'; 
+
+function addToDisplay(value) {
+    const display = document.getElementById('display');
+    display.value += value;
+}
+
+function clearDisplay() {
+    document.getElementById('display').value = '';
+}
+
+function calculate() {
+    try {
+        const expression = document.getElementById('display').value;
+    
+        const result = mode === 'deg' ? eval(convertToRadians(expression)) : eval(expression);
+        document.getElementById('display').value = result;
+    } catch (error) {
+        document.getElementById('display').value = 'Error';
+    }
+}
+
+function trigFunction(func) {
+    const input = document.getElementById('display');
+    input.value = `Math.${func}(${input.value})`;
+}
+
+function toggleMode(newMode) {
+    mode = newMode;
+}
+
+function convertToRadians(expression) {
+    return expression.replace(/(\d+) *sin|cos\(|tan|asin|acos|atan/g, (match, p1) => {
+        return `Math.${match} * (Math.PI / 180)`;
+    });
+}
+</script>
+
+
+    
+</body>
+</html>
